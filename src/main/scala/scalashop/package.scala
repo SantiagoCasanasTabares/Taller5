@@ -34,8 +34,25 @@ package object scalashop {
   }
 
   /** Calcula el valor RGBA del pixel desenfocado correspondiente a un pixel de la imagen de entrada. */
-  def desenfoqueNuclear(fte: Img, x: Int, y: Int, radio: Int): RGBA = fte.apply(x,y)
-    // POR HACER: puede implementarla usando ciclos while o expresiones for
+  def desenfoqueNuclear(fte: Img, x: Int, y: Int, radio: Int): RGBA = {
+    def desenfoqueAux(fteAux: Img, x1: Int, y1: Int, radioAux: Int): RGBA = {
+      var rojoAux = 0
+      var verdeAux = 0
+      var azulaux = 0
+      var alphaAux = 0
+      val area = (radioAux+2)*(radioAux+2)
+
+       for (x <- 0 to(fteAux.ancho-1); y <- 0 to(fteAux.alto-1)){
+         rojoAux = rojoAux + rojo(fteAux(cercar(cercar(x, x1-1, x1+radioAux), 0, fteAux.ancho), cercar(cercar(y, y1-1, y1+radioAux), 0, fteAux.alto)))
+         verdeAux = verdeAux + verde(fteAux(cercar(cercar(x, x1-1, x1+radioAux), 0, fteAux.ancho), cercar(cercar(y, y1-1, y1+radioAux), 0, fteAux.alto)))
+         azulaux = azulaux + azul(fteAux(cercar(cercar(x, x1-1, x1+radioAux), 0, fteAux.ancho), cercar(cercar(y, y1-1, y1+radioAux), 0, fteAux.alto)))
+         alphaAux = alphaAux + alpha(fteAux(cercar(cercar(x, x1-1, x1+radioAux), 0, fteAux.ancho), cercar(cercar(y, y1-1, y1+radioAux), 0, fteAux.alto)))
+       }
+      val nuevoPixel = rgba(rojoAux/area, verdeAux/area, azulaux/area, alphaAux/area)
+      nuevoPixel
+    }
+    desenfoqueAux(fte, cercar(x, 0, fte.ancho), cercar(y, 0, fte.alto), radio)
+  }
 
 
 }
