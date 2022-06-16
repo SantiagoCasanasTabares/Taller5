@@ -42,7 +42,7 @@ package object scalashop {
       var alphaAux = 0
       val area = (radioAux+2)*(radioAux+2)
 
-       for (x <- 0 to(fteAux.ancho-1); y <- 0 to(fteAux.alto-1)){
+       for (x <- x1-1 to(x1+radioAux); y <- y1-1 to(y1+radioAux)){
          rojoAux = rojoAux + rojo(fteAux(cercar(cercar(x, x1-1, x1+radioAux), 0, fteAux.ancho), cercar(cercar(y, y1-1, y1+radioAux), 0, fteAux.alto)))
          verdeAux = verdeAux + verde(fteAux(cercar(cercar(x, x1-1, x1+radioAux), 0, fteAux.ancho), cercar(cercar(y, y1-1, y1+radioAux), 0, fteAux.alto)))
          azulaux = azulaux + azul(fteAux(cercar(cercar(x, x1-1, x1+radioAux), 0, fteAux.ancho), cercar(cercar(y, y1-1, y1+radioAux), 0, fteAux.alto)))
