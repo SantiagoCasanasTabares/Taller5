@@ -42,7 +42,8 @@ package object scalashop {
       var alphaAux = 0
       val area = (radioAux+2)*(radioAux+2)
 
-       for (x <- x1-1 to(x1+radioAux); y <- y1-1 to(y1+radioAux)){
+       for (x <- cercar(x1-1, 0, fteAux.ancho) to cercar(x1+radioAux, 0, fteAux.ancho) ;
+            y <- cercar(y1-1, 0, fteAux.alto) to cercar(y1+radioAux, 0, fteAux.alto)){
          rojoAux = rojoAux + rojo(fteAux(x,y))
          verdeAux = verdeAux + verde(fteAux(x,y))
          azulaux = azulaux + azul(fteAux(x,y))
