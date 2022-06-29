@@ -1,3 +1,5 @@
+import scala.math.ceil
+
 package object scalashop {
   /** El valor de cada pixel es representado con un entero de 32 bits. */
   type RGBA = Int
@@ -34,8 +36,8 @@ package object scalashop {
   }
 
   /** Calcula el valor RGBA del pixel desenfocado correspondiente a un pixel de la imagen de entrada. */
-  def desenfoqueNuclear(fte: Img, x: Int, y: Int, radio: Int): RGBA = {
-    def desenfoqueAux(fteAux: Img, x1: Int, y1: Int, radioAux: Int): RGBA = {
+  def desenfoqueNuclear(fte: Img, x: Int, y: Int, radio: Int):RGBA = {
+    def desenfoqueAux(fteAux: Img, x1: Int, y1: Int, radioAux: Int):RGBA = {
       var rojoAux = 0
       var verdeAux = 0
       var azulaux = 0
@@ -49,8 +51,8 @@ package object scalashop {
          azulaux = azulaux + azul(fteAux(x,y))
          alphaAux = alphaAux + alpha(fteAux(x,y))
        }
-      val nuevoPixel = rgba(rojoAux/area, verdeAux/area, azulaux/area, alphaAux/area)
-      nuevoPixel
+      rgba(ceil(rojoAux.toFloat/area).toInt, ceil(verdeAux.toFloat/area).toInt,
+           ceil(azulaux.toFloat/area).toInt, ceil(alphaAux.toFloat/area).toInt)
     }
     desenfoqueAux(fte, cercar(x, 0, fte.ancho), cercar(y, 0, fte.alto), radio)
   }
